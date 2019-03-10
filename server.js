@@ -8,7 +8,6 @@ const PORT = process.env.PORT || 4000; // "process.env.PORT" is Heroku's port if
 const path = require("path");
 const dotenv = require("dotenv").config();
 let Todo = require('./todo.model');
-let User = require('./user.model');
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, "client", "build")))
@@ -18,7 +17,7 @@ connection.once('open', function() {
     console.log("MongoDB database connection established successfully");
 })
 todoRoutes.route('/').get(function(req, res) {
-    User.find(function(err, todos) {
+    Todo.find(function(err, todos) {
         if (err) {
             console.log(err);
         } else {
@@ -28,12 +27,12 @@ todoRoutes.route('/').get(function(req, res) {
 });
 todoRoutes.route('/:id').get(function(req, res) {
     let id = req.params.id;
-    User.findById(id, function(err, todo) {
+    Todo.findById(id, function(err, todo) {
         res.json(todo);
     });
 });
 todoRoutes.route('/update/:id').post(function(req, res) {
-    User.findById(req.params.id, function(err, todo) {
+    Todo.findById(req.params.id, function(err, todo) {
         if (!todo)
             res.status(404).send("data is not found");
         else
@@ -50,7 +49,7 @@ todoRoutes.route('/update/:id').post(function(req, res) {
     });
 });
 todoRoutes.route('/add').post(function(req, res) {
-    let todo = new User(req.body);
+    let todo = new Todo(req.body);
     todo.save()
         .then(todo => {
             res.status(200).json({'todo': 'todo added successfully'});
