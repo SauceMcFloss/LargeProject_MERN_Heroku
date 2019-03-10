@@ -17,11 +17,11 @@ connection.once('open', function() {
     console.log("MongoDB database connection established successfully");
 })
 todoRoutes.route('/').get(function(req, res) {
-    Todo.find(function(err, todos2) {
+    Todo.find(function(err, todos) {
         if (err) {
             console.log(err);
         } else {
-            res.json(todos2);
+            res.json(todos);
         }
     });
 });
