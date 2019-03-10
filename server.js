@@ -17,11 +17,11 @@ connection.once('open', function() {
     console.log("MongoDB database connection established successfully");
 })
 todoRoutes.route('/').get(function(req, res) {
-    Todo.find(function(err, todos) {
+    Todo.find(function(err, todos2) {
         if (err) {
             console.log(err);
         } else {
-            res.json(todos);
+            res.json(todos2);
         }
     });
 });
@@ -41,7 +41,7 @@ todoRoutes.route('/update/:id').post(function(req, res) {
             todo.todo_priority = req.body.todo_priority;
             todo.todo_completed = req.body.todo_completed;
             todo.save().then(todo => {
-                res.json('Todo updated!');
+                res.json('Todo2 updated!');
             })
             .catch(err => {
                 res.status(400).send("Update not possible");
@@ -52,13 +52,13 @@ todoRoutes.route('/add').post(function(req, res) {
     let todo = new Todo(req.body);
     todo.save()
         .then(todo => {
-            res.status(200).json({'todo': 'todo added successfully'});
+            res.status(200).json({'todo2': 'todo2 added successfully'});
         })
         .catch(err => {
-            res.status(400).send('adding new todo failed');
+            res.status(400).send('adding new todo2 failed');
         });
 });
-app.use('/todos', todoRoutes);
+app.use('/todos2', todoRoutes);
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 });
