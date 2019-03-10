@@ -17,11 +17,11 @@ connection.once('open', function() {
     console.log("MongoDB database connection established successfully");
 })
 todoRoutes.route('/').get(function(req, res) {
-    Todo.find(function(err, todos2) {
+    Todo.find(function(err, todos) {
         if (err) {
             console.log(err);
         } else {
-            res.json(todos2);
+            res.json(todos);
         }
     });
 });
@@ -58,7 +58,7 @@ todoRoutes.route('/add').post(function(req, res) {
             res.status(400).send('adding new todo failed');
         });
 });
-app.use('/todos', todoRoutes);
+app.use('/todos2', todoRoutes);
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 });
