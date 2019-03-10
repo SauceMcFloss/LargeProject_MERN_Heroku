@@ -58,7 +58,7 @@ todoRoutes.route('/add').post(function(req, res) {
             res.status(400).send('adding new todo failed');
         });
 });
-app.use('/todos2', todoRoutes);
+app.use('/todos', todoRoutes);
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 });
