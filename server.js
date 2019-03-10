@@ -49,13 +49,13 @@ todoRoutes.route('/update/:id').post(function(req, res) {
     });
 });
 todoRoutes.route('/add').post(function(req, res) {
-    let todo2 = new Todo(req.body);
-    todo2.save()
-        .then(todo2 => {
-            res.status(200).json({'todo2': 'todo2 added successfully'});
+    let todo = new Todo(req.body);
+    todo.save()
+        .then(todo => {
+            res.status(200).json({'todo': 'todo added successfully'});
         })
         .catch(err => {
-            res.status(400).send('adding new todo2 failed');
+            res.status(400).send('adding new todo failed');
         });
 });
 app.use('/todos', todoRoutes);
